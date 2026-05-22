@@ -1,4 +1,3 @@
-import React from "react";
 import './dark-mode-button.css';
 
 const DarkModeButton = ({ themeMode, callback }) => {

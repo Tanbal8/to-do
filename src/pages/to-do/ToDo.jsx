@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import AddTaskForm from "./cmoponents/add-task-form/AddTaskForm";
 import TaskList from "./cmoponents/task-list/TaskList";
 import GoToTopButton from "../../components/go-to-top-button/GoToTopButton";

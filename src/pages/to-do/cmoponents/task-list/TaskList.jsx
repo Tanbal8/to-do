@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ListOptions from "../list-options/ListOptions";
 import TaskItem from "../task-item/TaskItem";
 import ToDoContext from "../../../../contexts/ToDoContext";
 import './task-list.css';
 
 const TasksList = () => {
-  const { tasks, activeListFilter, listOptionsRef, taskListRef } = useContext(ToDoContext);
+  const { tasks, activeListFilter, taskListRef } = useContext(ToDoContext);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [noTasksContent, setNoTasksContent] = useState('');
 
@@ -33,7 +33,7 @@ const TasksList = () => {
 
   return tasks?.length > 0 ?
     <>
-      <ListOptions ref={listOptionsRef} />
+      <ListOptions />
       {
         filteredTasks?.length > 0 ?
           <ul id="task-list" ref={taskListRef}>

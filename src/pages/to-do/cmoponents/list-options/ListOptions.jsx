@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { FaFilter } from "react-icons/fa";
 import { MdSort } from 'react-icons/md';
 import GlobalContext from "../../../../contexts/GlobalContext";

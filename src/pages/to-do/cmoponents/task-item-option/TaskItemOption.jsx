@@ -1,4 +1,3 @@
-import React from "react";
 import './task-item-option.css';
 
 const TaskItemIcon = ({ children, id, onClick = () => {} }) => (

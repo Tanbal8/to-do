@@ -49,7 +49,7 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    animation: dark-mode-sun-rays 0.15s linear forwards;
+    animation: dark-mode-sun-rays 0.15s 0.1s linear forwards;
 }
 
 @keyframes dark-mode-sun-rays {

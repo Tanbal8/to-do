@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useRef } from "react";
+import { useContext, useReducer, useRef } from "react";
 import TaskItemIcon from "../task-item-option/TaskItemOption";
 import TaskItemReducer from '../../../../reducer/TaskItemReducer';
 import GlobalContext from "../../../../contexts/GlobalContext";

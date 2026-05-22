@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCaretUp } from 'react-icons/fa';
 import './go-to-top-button.css';
 
