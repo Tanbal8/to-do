@@ -1,0 +1,12 @@
+#to-do-page {
+    width: 100vw;
+    min-height: 100vh;
+    padding-bottom: calc(2 * var(--sections-gap));
+    transition: background-color 0.15s ease;
+}
+#to-do-page[data-theme-mode=light] {
+    background-color: var(--background-color-light);
+}
+#to-do-page[data-theme-mode=dark] {
+    background-color: var(--background-color-dark);
+}

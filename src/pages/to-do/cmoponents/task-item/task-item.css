@@ -1,0 +1,126 @@
+.task-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 3px -2px #aaa;
+    animation: task-item-show 0.3s ease forwards;
+}
+@keyframes task-item-show {
+    from { scale: 0; }
+    to { scale: 1; }
+}
+.task-item[data-theme-mode=light] {
+    background-color:var(--task-item-background-color-light);
+}
+.task-item[data-theme-mode=dark] {
+    background-color:var(--task-item-background-color-dark);
+}
+.task-item:not(:active) {
+    transition: margin-top 0.2s linear, transform 0.2s ease, opacity 0.2s linear;
+}
+.task-done {
+    background-color: rgb(216, 255, 158) !important;
+}
+.task-item-delete {
+    animation: task-item-delete 0.2s ease forwards !important;
+}
+@keyframes task-item-delete {
+    to { scale: 0; }
+}
+
+/* Checkbox section */
+.task-item-checkbox-container {
+    padding: calc(2 * var(--items-gap));
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.task-item-checkbox-container::after {
+    content: "";
+    position: absolute;
+    inset: 12% 0;
+    border-right: 1px solid #bbb;
+}
+.task-item-checkbox {
+    width: var(--task-item-check-circle-size);
+    aspect-ratio: 1;
+    border: 0.5px solid #555;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.task-item-checkbox::after { /* +5px clickable area for easier clicking */
+    position: absolute;
+    inset: -5px;
+    content: "";
+    border-radius: 50%;
+}
+.task-item-checkbox > svg {
+    color: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -40% -55%;
+    z-index: -1;
+    transform: scale(0);
+    animation: show-check-mark 0.35s ease forwards;
+}
+@keyframes show-check-mark {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Task text */
+.task-item-content-container {
+    align-self: stretch;
+    flex: 1;
+    padding-left: calc(2 * var(--items-gap));
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+.task-item-content-container > *:not(:last-child) {
+    padding-right: var(--items-gap);
+}
+.task-item-task {
+    background-color: transparent;
+    font-size: var(--font-size);
+    flex: 1;
+    min-width: 0;
+}
+.task-item-task:read-only {
+    cursor: default;
+}
+.task-item-dates {
+    flex-shrink: 0;
+    font-size: var(--small-font-size);
+    color: #888;
+    display: flex;
+}
+
+.task-item-edit-date {
+    display: flex;
+    align-items: center;
+}
+.task-item-edit-date > svg {
+    margin-right: calc(var(--items-gap) * 2 / 3);
+}
+/* Options */
+.task-item-options {
+    align-self: stretch;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 var(--items-gap);
+    white-space: nowrap;
+}
+.task-item-options > button {
+    height: 100%;
+    padding: 0 var(--items-gap);
+}

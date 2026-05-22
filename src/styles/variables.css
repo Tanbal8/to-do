@@ -1,0 +1,86 @@
+:root {
+    /* CONSTS */
+        /* Colors */
+            /* Consts */
+            --button-background-color: #0062ed;
+            --button-hover-background-color: #0050c0;
+            /* Light */
+            --background-color-light: #ddd;
+            --task-item-background-color-light: #f5f5f5;
+            --middle-color-light: #666;
+            --opposite-color-light: #2a2a2a;
+            --shadow-color-light: #ccc;
+            --list-filter-backdrop-filter-light: brightness(0.9);
+
+            /* Dark */
+            --background-color-dark: #333;
+            --task-item-background-color-dark: #ddd;
+            --middle-color-dark: #d5d5d5;
+            --opposite-color-dark: #eee;
+            --shadow-color-dark: #292929;
+            --list-filter-backdrop-filter-dark: brightness(1.5);
+
+        /* Sizes */
+        --list-width: clamp(200px, 85%, 800px);
+
+    /* VARIABLES */
+        /* Sizes*/
+        --sections-gap: 0.4rem;
+        --items-gap: 0.3rem;
+        --padding: 0.3rem 0.5rem;
+        --task-item-check-circle-size: 0.8rem;
+        --font-size: 0.8rem;
+        --small-font-size: 0.55rem;
+        --empty-list-font-size: 1.8rem;
+        --border-radius: 0.2rem;
+        --go-to-top-button-padding: 0.2rem;
+        --dark-mode-button-size: 1rem;
+        --dark-mode-button-sun-rays-height: 2px;
+        --dark-mode-button-sun-rays-width: 0.4rem;
+
+        /* Layouts */
+        --tasks-info-justify-content: space-between;
+}
+@media (min-width: 480px) {
+    :root {
+        /* Sizes */
+        --sections-gap: 0.5rem;
+        --items-gap: 0.35rem;
+        --task-item-check-circle-size: 0.85rem;
+        --font-size: 0.9rem;
+        --small-font-size: 0.63rem;
+        --empty-list-font-size: 2.3rem;
+    }
+}
+@media (min-width: 768px) {
+    :root {
+        /* Sizes */
+        --sections-gap: 0.6rem;
+        --items-gap: 0.4rem;
+        --padding: 0.4rem 0.6rem;
+        --task-item-check-circle-size: 0.9rem;
+        --font-size: 1rem;
+        --small-font-size: 0.7rem;
+        --empty-list-font-size: 2.7rem;
+        --button-border-radius: 0.3rem;
+        --go-to-top-button-padding: 0.3rem;
+        --dark-mode-button-size: 1.5rem;
+        --dark-mode-button-sun-rays-height: 3px;
+        --dark-mode-button-sun-rays-width: 0.5rem;
+
+        /* Layouts */
+        --tasks-info-justify-content: center;
+    }
+}
+@media (min-width: 1024px) {
+    :root {
+        /* Sizes */
+        --sections-gap: 0.75rem;
+        --items-gap: 0.5rem;
+        --task-item-check-circle-size: 1rem;
+        --font-size: 1.2rem;
+        --small-font-size: 0.75rem;
+        --empty-list-font-size: 3rem;
+        --go-to-top-button-padding: 0.4rem;
+    }
+}

@@ -1,0 +1,34 @@
+import React, { useEffect, useState } from "react";
+import { FaCaretUp } from 'react-icons/fa';
+import './go-to-top-button.css';
+
+const GoToTopButton = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const clickHandler = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const scrollHandler = () => {
+    setIsVisible(window.scrollY > 150)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  return (
+    <button
+      id="go-to-top-button"
+      onClick={clickHandler}
+      className={isVisible ? 'visible' : ''}
+    >
+      <FaCaretUp size={24} />
+    </button>
+  );
+}
+
+export default GoToTopButton;
