@@ -3,6 +3,7 @@ import notification from "./utils/notification/notification";
 import GlobalContext from './contexts/GlobalContext';
 import './App.css';
 import './styles/variables.css';
+import './styles/theme.css';
 
 const App = () => {
   return (

@@ -1,0 +1,13 @@
+.button {
+    padding: var(--padding);
+    background-color: var(--button-background-color);
+    color: var(--background-color);
+    transition: filter 0.15s linear;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size);
+    cursor: pointer;
+    border: none;
+    &:hover {
+        filter: brightness(0.9);
+    }
+}

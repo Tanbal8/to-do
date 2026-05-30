@@ -1,14 +1,16 @@
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLocalStorage, useTasksManager } from "../../hooks/customHooks";
 import AddTaskForm from "./cmoponents/add-task-form/AddTaskForm";
 import TaskList from "./cmoponents/task-list/TaskList";
 import GoToTopButton from "../../components/go-to-top-button/GoToTopButton";
 import DarkModeButton from "../../components/dark-mode-button/DarkModeButton";
 import { onDragOver, onDrop } from '../../utils/drag';
 import ToDoContext from "../../contexts/ToDoContext";
-import ToDoReducer from "../../reducer/ToDoReducer";
-import './to-do.css';
+import './to-do.scss';
 
 const ToDo = () => {
+  const [tasks, tasksOperations] = useTasksManager('to-do-tasks', []);
+  const [themeMode, setThemeMode] = useLocalStorage('to-do-theme-mode', 'light');
   const listFilters = [
     {
       name: 'All',
@@ -17,69 +19,46 @@ const ToDo = () => {
       name: 'To Do',
       attributes: {
         'onDragOver': onDragOver,
-        'onDrop': e => onDrop(e, null, onToDoButtonDrop),
+        'onDrop': e => onDrop(e, null, (id) => tasksOperations.changeStatus(id, false)),
       },
     },
     {
       name: 'Done',
       attributes: {
         'onDragOver': onDragOver,
-        'onDrop': e => onDrop(e, null, onDoneButtonDrop),
+        'onDrop': e => onDrop(e, null, (id) => tasksOperations.changeStatus(id, true)),
       },
     }
-      
   ];
-  const [state, dispatch] = useReducer(ToDoReducer, {
-      tasks: (localStorage.getItem('to-do-tasks') && JSON.parse(localStorage.getItem('to-do-tasks'))) || [],
-      activeListFilter: listFilters[0].name || 'All',
-      themeMode: localStorage.getItem('to-do-theme-mode') || 'light',
-  });
+  const [activeListFilter, setActiveListFilter] = useState(listFilters[0].name || 'All');
   const taskListRef = useRef(null);
   const listOptionsRef = useRef(null);
 
-  const onToDoButtonDrop = (id) => {
-      dispatch({
-        type: 'CHANGE_STATUS',
-        task: state.tasks.find(task => task.id === id),
-        newStatus: false,
-    })
-  }
-
-  const onDoneButtonDrop = (id) => {
-      dispatch({
-        type: 'CHANGE_STATUS',
-        task: state.tasks.find(task => task.id === id),
-        newStatus: true,
-    })
-  }
-
   const darkModeButtonClickHandler = newThemeMode => {
-    dispatch({
-      type: 'CHANGE_THEME_MODE',
-      newThemeMode,
-    });
-    localStorage.setItem('to-do-theme-mode', newThemeMode);
+    setThemeMode(newThemeMode);
   }
 
   useEffect(() => {
-    localStorage.setItem('to-do-tasks', JSON.stringify(state.tasks));
-  }, [state.tasks]);
+    document.documentElement.setAttribute('data-theme-mode', themeMode);
+  }, [themeMode]);
 
   return (
     <ToDoContext value={{
-      tasks: state.tasks,
-      globalDispatch: dispatch,
-      activeListFilter: state.activeListFilter,
+      tasks,
+      tasksOperations,
+      activeListFilter,
+      setActiveListFilter,
       listFilters,
       taskListRef,
       listOptionsRef,
-      themeMode: state.themeMode,
+      themeMode,
+      setThemeMode,
     }}>
-      <div id="to-do-page" data-theme-mode={state.themeMode}>
+      <div id="to-do-page">
         <AddTaskForm />
         <TaskList />
         <GoToTopButton />
-        <DarkModeButton themeMode={state.themeMode} callback={darkModeButtonClickHandler} />
+        <DarkModeButton themeMode={themeMode} callback={darkModeButtonClickHandler} />
       </div>
     </ToDoContext>
   );

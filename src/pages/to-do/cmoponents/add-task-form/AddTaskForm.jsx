@@ -1,11 +1,11 @@
 import { useContext, useRef } from "react";
 import GlobalContext from "../../../../contexts/GlobalContext";
 import ToDoContext from "../../../../contexts/ToDoContext";
-import './add-task-form.css';
+import './add-task-form.scss';
 
 const AddTaskForm = () => {
   const { notification } = useContext(GlobalContext);
-  const { globalDispatch, themeMode } = useContext(ToDoContext);
+  const { tasksOperations } = useContext(ToDoContext);
   const inputRef = useRef(null);
   const buttonClickHandler = e => {
     e.preventDefault(); // prevent of submiting
@@ -20,9 +20,9 @@ const AddTaskForm = () => {
       inputRef.current.focus();
       return;
     };
-    globalDispatch({
-        type: 'ADD_TASK',
-        newTask,
+    tasksOperations.add({
+      task: newTask,
+      done: false,
     });
     inputRef.current.value = '';
     inputRef.current.focus();
@@ -34,7 +34,7 @@ const AddTaskForm = () => {
   }
 
   return (
-    <form id='add-task-form' data-theme-mode={themeMode}>
+    <form id='add-task-form'>
       <input
         type="text"
         id='add-task-input'

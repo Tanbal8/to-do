@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ListOptions from "../list-options/ListOptions";
 import TaskItem from "../task-item/TaskItem";
 import ToDoContext from "../../../../contexts/ToDoContext";
-import './task-list.css';
+import './task-list.scss';
 
 const TasksList = () => {
   const { tasks, activeListFilter, taskListRef } = useContext(ToDoContext);

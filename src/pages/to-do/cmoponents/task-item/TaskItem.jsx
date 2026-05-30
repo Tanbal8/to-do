@@ -9,24 +9,17 @@ import { FiEdit2 } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import { FiCheck } from "react-icons/fi";
 import { FiCheckCircle } from "react-icons/fi";
-import './task-item.css';
+import './task-item.scss';
 
 const TaskItem = ({ task }) => {
   const { notification } = useContext(GlobalContext);
-  const { tasks, globalDispatch, listOptionsRef, activeListFilter, themeMode } = useContext(ToDoContext);
+  const { tasks, tasksOperations, listOptionsRef, activeListFilter } = useContext(ToDoContext);
   const [state, dispatch] = useReducer(TaskItemReducer, {
     isEditing: false,
     isDeleting: false,
   });
   const taskItemRef = useRef(null);
   const taskTextRef = useRef(null);
-
-  const changeStatus = () => {
-    globalDispatch({
-      type: 'CHANGE_STATUS',
-      task,
-    });
-  }
 
   const deleteHandler = () => {
     if (state.isDeleting) return; // Prevent of several clicks on delete button
@@ -45,10 +38,7 @@ const TaskItem = ({ task }) => {
     new notification('success', 'Task deleted!');
     // Updating tasks state after 200ms for animation
     setTimeout(() => {
-      globalDispatch({
-        type: 'DELETE_TASK',
-        task,
-      });
+      tasksOperations.remove(task.id);
     }, 200);
   }
 
@@ -77,10 +67,8 @@ const TaskItem = ({ task }) => {
     }
     // Successful editing
     dispatch({ type: 'CHANGE_IS_EDITING' }); // Changing isEditing state
-    globalDispatch({ // Changing task data
-      type: 'EDIT_TASK',
-      task,
-      newTask,
+    tasksOperations.edit(task.id, {
+      task: newTask,
     });
     new notification('success', 'Task edited!');
   }
@@ -93,11 +81,7 @@ const TaskItem = ({ task }) => {
     const fromIndex = tasks.findIndex(taskItem => taskItem.id === fromId);
     const toIndex = tasks.findIndex(taskItem => taskItem.id === toId);
     if (fromIndex === toIndex) return;
-    globalDispatch({
-      type: 'CHANGE_TASK_ORDER',
-      from: fromIndex,
-      to: toIndex,
-    });
+    tasksOperations.changeOrder(fromIndex, toIndex);
   }
 
   const onContextMenu = (e) => {
@@ -115,12 +99,11 @@ const TaskItem = ({ task }) => {
       onDragEnd={onDragEnd}
       onDrop={e => { onDrop(e, task.id, reOrderHandler) }}
       onContextMenu={onContextMenu}
-      data-theme-mode={themeMode}
     >
       <div className="task-item-checkbox-container">
         <button // The circle checkbox
           className='task-item-checkbox'
-          onClick={changeStatus}
+          onClick={() => tasksOperations.changeStatus(task.id)}
         >
           { task.done && // Checkmark if the task is done
             <FiCheck size={22} />

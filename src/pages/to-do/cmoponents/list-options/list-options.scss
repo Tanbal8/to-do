@@ -1,0 +1,92 @@
+@use '../../../../styles/mixins' as mixins;
+
+#list-options {
+    /* Section */
+    margin-bottom:var(--sections-gap);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > div:not(:last-child) {
+        margin-bottom: var(--items-gap);
+    }
+
+    /* List filter */
+    #list-filter-container {
+        display: flex;
+        align-items: center;
+        & > ul {
+            display: flex;
+            margin-left: calc(2 * var(--items-gap));
+            & > li {
+                &:not(:last-child) {
+                    border-right: 1px solid #999;
+                }
+                & > button {
+                    padding: 0.2rem 1rem;
+                    font-size: var(--font-size);
+                    cursor: pointer;
+                    transition: backdrop-filter 0.2s ease;
+                    background-color: transparent;
+                    border: none;
+                    &.active-list-filter { /* Active list filter li */
+                        text-decoration: 2px underline;
+                    }
+                }
+            }
+        }
+    }
+
+    /* List sort */
+    & > #list-sort-container {
+        display: flex;
+        align-items: center;
+        & > ul {
+            display: flex;
+            margin-left: calc(2 * var(--items-gap));
+            & > li {
+                &:not(:last-child) {
+                    margin-right: calc(1.5 * var(--items-gap));
+                }
+                & > button {
+                    @extend .button;
+                }
+            }
+        }
+    }
+
+    /* Buttons */
+    & > #list-options-buttons-container {
+        display: flex;
+        & > ul {
+            display: flex;
+            & > li {
+                &:not(:last-child) {
+                    margin-right: calc(1.5 * var(--items-gap));
+                }
+                & > button {
+                    @extend .button;
+                }
+            }
+        }
+    }
+
+    /* Tasks info */
+    #tasks-info {
+        width: var(--list-width);
+        display: flex;
+        justify-content: var(--tasks-info-justify-content);
+        font-size: var(--font-size);
+        & > div:first-child {
+            margin-right: calc(5 * var(--sections-gap));
+        }
+    }
+
+    & > #list-filter-container {
+        & >  ul > li > button {
+        color: var(--opposite-color);
+            &.active-list-filter {
+                backdrop-filter: var(--list-filter-backdrop-filter);
+            }
+        }
+    }
+}

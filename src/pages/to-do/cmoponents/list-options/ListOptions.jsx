@@ -3,20 +3,18 @@ import { FaFilter } from "react-icons/fa";
 import { MdSort } from 'react-icons/md';
 import GlobalContext from "../../../../contexts/GlobalContext";
 import ToDoContext from "../../../../contexts/ToDoContext";
-import './list-options.css';
+import './list-options.scss';
 
 const ListOptions = () => {
     const { notification } = useContext(GlobalContext);
-    const { tasks, globalDispatch, activeListFilter, listFilters, taskListRef, listOptionsRef, themeMode } = useContext(ToDoContext);
+    const { tasks, tasksOperations, activeListFilter, setActiveListFilter, listFilters, taskListRef, listOptionsRef } = useContext(ToDoContext);
 
     const doAllTheTasks = () => { // Do all the tasks
         if (tasks.every(task => task.done)) {
             new notification('message', 'All tasks are already done!');
             return;
         }
-        globalDispatch({
-            type: 'DO_ALL_THE_TASKS',
-        });
+        tasksOperations.doAll();
         new notification('success', 'Good job!', 'You finished all the tasks.');
     }
 
@@ -38,10 +36,7 @@ const ListOptions = () => {
             delay = 200;
         }
         setTimeout(() => {
-            for (const task of filteredTasks) globalDispatch({
-                type: 'DELETE_TASK',
-                task,
-            });
+            for (const task of filteredTasks) tasksOperations.remove(task.id);
         }, delay);
         new notification('success', successNotification);
     }
@@ -61,26 +56,12 @@ const ListOptions = () => {
         },
     ];
 
-    const setActiveListFilter = newActiveListFilter => {
-        globalDispatch({
-            type: 'CHANGE_ACTIVE_LIST_FILTER',
-            newActiveListFilter,
-        });
-    }
-
-    const sortbuttonsClickHandler = (sortBy) => {
-        globalDispatch({
-            type: 'SORT_TASKS',
-            sortBy,
-        });
-    }
-
     const tasksCount = tasks.length;
     const doneTasksCount = tasks.filter(task => task.done).length;
 
     return (
         <div id="list-options" ref={listOptionsRef}>
-            <div id='list-filter-container' data-theme-mode={themeMode}>
+            <div id='list-filter-container'>
                 <FaFilter />
                 <ul id="list-filter-list">
                 {
@@ -98,21 +79,21 @@ const ListOptions = () => {
                 }
                 </ul>
             </div>
-            <div id="list-sort-container" data-theme-mode={themeMode}>
+            <div id="list-sort-container">
                 <MdSort size={22} />
                 <ul id="list-sort-list">
                 {
                     sortList.map(sort => (
                         <li key={`sortBy-${sort.name}`}>
                             <button
-                                onClick={() => sortbuttonsClickHandler(sort.sortBy)}
+                                onClick={() => tasksOperations.sort(sort.sortBy)}
                             >{ sort.name }</button>
                         </li>
                     ))
                 }
                 </ul>
             </div>
-            <div id="list-options-button-container" data-theme-mode={themeMode}>
+            <div id="list-options-buttons-container">
                 <ul id='list-options-buttons'>
                     {
                         ListOptionsButtons.map((button, index) => (
@@ -127,7 +108,7 @@ const ListOptions = () => {
                 </ul>
             </div>
             { tasksCount > 0 &&
-                <div id="tasks-info" data-theme-mode={themeMode}>
+                <div id="tasks-info">
                     <div>
                         { tasks.length } Tasks
                     </div>

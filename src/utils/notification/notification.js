@@ -1,4 +1,4 @@
-import './notification.css';
+import './notification.scss';
 
 class notification {
     constructor(type, title, ...messages) {
@@ -7,22 +7,23 @@ class notification {
         this.div.classList.add('notification');
         const iconDiv = document.createElement('div');
         iconDiv.classList.add('notification-status-icon');
-        const template = document.createElement('div');
+        const notificationContent = document.createElement('div');
+        notificationContent.classList.add('notification-content');
         const titleDiv = document.createElement('div');
         titleDiv.classList.add('notification-title');
         titleDiv.textContent = title;
-        template.appendChild(titleDiv);
+        notificationContent.appendChild(titleDiv);
         if (messages) {
             for (let message of messages) {
                 let messageDiv = document.createElement('div');
                 messageDiv.classList.add('notification-message');
                 messageDiv.textContent = message;
                 messageDiv.dir = 'auto';
-                template.appendChild(messageDiv);
+                notificationContent.appendChild(messageDiv);
             }
         }
         this.div.appendChild(iconDiv);
-        this.div.appendChild(template);
+        this.div.appendChild(notificationContent);
         if (notificationTypes[type]) {
             this.div.style.borderLeftColor = notificationTypes[type].color;
             this.div.style.borderRightColor = notificationTypes[type].color;

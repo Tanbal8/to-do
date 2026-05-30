@@ -1,0 +1,28 @@
+@use '../../../../styles/mixins' as mixins;
+
+#add-task-form {
+    /* Form */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: var(--sections-gap) 0;
+
+    /* Input */
+    & > #add-task-input {
+        width: clamp(100px, 65%, 500px);
+        padding: var(--padding);
+        font-size: var(--font-size);
+        border-radius: var(--border-radius);
+        position: relative;
+        right: -0.5rem;
+        box-shadow: 0 1px 1px 1px var(--shadow-color);
+    }
+
+    /* Button */
+    & > #add-task-button {
+        @extend .button;
+        box-shadow: -1px 1px 1px #00265b;
+        position: relative;
+        z-index: 1;
+    }
+}

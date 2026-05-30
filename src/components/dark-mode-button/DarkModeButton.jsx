@@ -1,4 +1,4 @@
-import './dark-mode-button.css';
+import './dark-mode-button.scss';
 
 const DarkModeButton = ({ themeMode, callback }) => {
     const handleClick = () => {
@@ -7,8 +7,8 @@ const DarkModeButton = ({ themeMode, callback }) => {
     }
 
     return (
-        <div id='dark-mode-button' onClick={handleClick}>
-            <div id='dark-mode-button-circle' data-theme-mode={themeMode}></div>
+        <div id='dark-mode-button' onClick={handleClick} data-theme-mode={themeMode}>
+            <div id='dark-mode-button-circle'></div>
             { themeMode === 'light' ?
                 <div id='dark-mode-button-sun-rays'>
                     { Array.from({ length: sunRaysCount }).map((_, index) => (

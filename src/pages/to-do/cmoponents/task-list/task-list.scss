@@ -3,10 +3,11 @@
     display: flex;
     flex-direction: column-reverse;
     margin: 0 auto;
+    & > li:not(:last-child) {
+        margin-top: var(--items-gap);
+    }
 }
-#task-list > li:not(:last-child) {
-    margin-top: var(--items-gap);
-}
+
 #empty-list {
     font-size: var(--empty-list-font-size);
     color: #aaa;
